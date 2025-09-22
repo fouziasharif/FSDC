@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Pet Generator</title>
+</head>
+<body>
+  <h1>Random Pet Generator</h1>
+  <button onclick="getRandomDog()">Get Random Dog</button>
+  <button onclick="getRandomCat()">Get Random Cat</button>
+
+  <div id="result">Click a button to see a pet...</div>
+
+  <script>
+    function getRandomDog() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://dog.ceo/api/breeds/image/random", true);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            document.getElementById("result").innerHTML =
+              `<h3>🐶 Random Dog</h3>
+               <img src="${data.message}" alt="Dog" width="300">`;
+          } else {
+            document.getElementById("result").innerText = "Could not load dog.";
+          }
+        }
+      };
+
+      xhr.send();
+    }
+
+    function getRandomCat() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://api.thecatapi.com/v1/images/search", true);
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            var cat = data[0];
+            document.getElementById("result").innerHTML =
+              `<h3>🐱 Random Cat</h3>
+               <img src="${cat.url}" alt="Cat" width="300">`;
+          } else {
+            document.getElementById("result").innerText = "Could not load cat.";
+          }
+        }
+      };
+
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
