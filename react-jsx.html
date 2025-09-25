@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple HTML using React</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <h1>I am a super heading</h1>
+    <div id="root">
+      <h2>Hello, I am child of Root</h2>
+    </div>
+    <h1>I am a super footer</h1>
+    <script src="./react-lib/react.development.js"></script>
+    <script src="./react-lib/react-dom.development.js"></script>
+    <script>
+      function App() {
+  const [randomNumber, setRandomNumber] = React.useState(
+    Math.floor(Math.random() * 100) + 1
+  );
+
+  const generateNumber = () => {
+    setRandomNumber(Math.floor(Math.random() * 100) + 1);
+  };
+
+  return React.createElement(
+    "div",
+    { id: "childDiv" },
+    [
+      React.createElement("h1", null, `Generated Number: ${randomNumber}`),
+      React.createElement(
+        "h2",
+        { style: { color: "blue" } },
+        randomNumber % 2 === 0 ? "The number is even!" : "The number is odd!"
+      ),
+      React.createElement(
+        "button",
+        {
+          onClick: generateNumber,
+          style: {
+            marginTop: "10px",
+            padding: "8px 16px",
+            backgroundColor: "green",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          },
+        },
+        "Generate New Number"
+      ),
+    ]
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(React.createElement(App));
+
+
+    </script>
+  </body>
+</html>
